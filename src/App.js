@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import Details from "./pages/detailsPage";
+import HomePage from "./pages/homePage";
+import Login from "./pages/loginPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar/navbar";
+import { UserContextProvider } from "./store/userTokenContext";
+import RepoList from "./pages/repoPage";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <UserContextProvider>
+        <Router>
+          <Navbar/>
+          <Routes>
+            <Route path="" exact element={<Login />} />
+            <Route path="/login" exact element={<Login />} />
+            <Route path="/home" exact element={<HomePage />} />
+            <Route path="/repolist/" exact element={<RepoList/>} />
+            <Route path="/details/:id" exact element={<Details />} />
+          </Routes>
+        </Router>
+      </UserContextProvider>
     </div>
   );
 }
